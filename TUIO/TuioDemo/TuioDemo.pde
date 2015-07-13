@@ -49,7 +49,7 @@ void setup()
 
 void draw(){
   if(test.checkTimeout()){
-    println(loadStrings("file:///Users/Apple/Desktop/TUIO/select.php?behavior=select&bid="+testI++));
+    println(loadStrings("http://divaclin.github.io/coconstructionV2/TUIO/action.html?behavior=select&x=1&y=1&bid="+testI++));
   }
   background(0);
   textFont(font,18*scale_factor);
