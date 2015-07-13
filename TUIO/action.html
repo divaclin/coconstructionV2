@@ -56,7 +56,9 @@
 							  return false;
 						  }
 				      }
-				      behaviorMap[getURLParameter(window.location.href,'behavior')].apply(this);
+					  if(getURLParameter(window.location.href,'behavior')!=null){
+				         behaviorMap[getURLParameter(window.location.href,'behavior')].apply(this);
+				      }
 			  }
 			        
 			  return Router;
@@ -67,17 +69,17 @@
 	  }).call(this);
 	  
 	  $(document).ready(function(){
-		  router.behavior();
-		  console.log(getFile('test.txt'));
+		  getFile('TuioDemo/test.txt');
+		  //router.behavior();
 	  });
 	  
 	  function getURLParameter(url, name) {
 	      return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
 	  }
 	  function getFile(url){
-		  $.get(url,function(data){
-			  return data;
-		  });
+          //return
+		  console.log($.ajax({url:url,async:false}).responseText);
+		  var t = setTimeout(getFile(url),3000);
 	  }
 	</script>
 	<body>

@@ -49,7 +49,7 @@ void setup()
 
 void draw(){
   if(test.checkTimeout()){
-    println(loadStrings("http://divaclin.github.io/coconstructionV2/TUIO/action.html?behavior=select&x=1&y=1&bid="+testI++));
+    saveStrings("test.txt",toStringArr(""+testI++));
   }
   background(0);
   textFont(font,18*scale_factor);
@@ -85,4 +85,10 @@ void printText(String str){
      textSize(50);
      text(str,(width-textWidth(str))/2,height/2);
 }
-
+String[] toStringArr(String str){
+         String[] tmp = new String[str.length()];
+         for(int i=0;i<str.length();i++){
+            tmp[i]=""+str.charAt(i);
+         }
+         return tmp;
+}
