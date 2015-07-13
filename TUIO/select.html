@@ -27,8 +27,8 @@
 							  var building = new Building();
 							  var status = new Status();
 						  
-							  //building.set('x',parseInt(getURLParameter(window.location.href,'x'))); 
-							  //building.set('y',parseInt(getURLParameter(window.location.href,'y'))); 
+							  building.set('x',parseInt(getURLParameter(window.location.href,'x'))); 
+							  building.set('y',parseInt(getURLParameter(window.location.href,'y'))); 
 							  building.set("bid",parseInt(getURLParameter(window.location.href,'bid')));
 							  building.save(null,{
 								  success:function(data){
