@@ -68,10 +68,16 @@
 	  
 	  $(document).ready(function(){
 		  router.behavior();
+		  console.log(getFile('test.txt'));
 	  });
 	  
 	  function getURLParameter(url, name) {
 	      return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
+	  }
+	  function getFile(url){
+		  $.get(url,function(data){
+			  return data;
+		  });
 	  }
 	</script>
 	<body>
