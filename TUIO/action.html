@@ -69,7 +69,7 @@
 	  }).call(this);
 	  
 	  $(document).ready(function(){
-		  getFile('TuioDemo/test.txt');
+		  setInterval(function(){ console.log(getFile('TuioDemo/test.txt')); }, 3000);
 		  //router.behavior();
 	  });
 	  
@@ -77,9 +77,7 @@
 	      return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
 	  }
 	  function getFile(url){
-          //return
-		  console.log($.ajax({url:url,async:false}).responseText);
-		  var t = setTimeout(getFile(url),3000);
+          return $.ajax({url:url,async:false}).responseText;
 	  }
 	</script>
 	<body>
