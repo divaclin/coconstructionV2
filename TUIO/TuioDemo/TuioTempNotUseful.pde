@@ -1,3 +1,16 @@
+void TuioPreSetup(){
+     // GUI setup
+     noCursor();
+     noStroke();
+     fill(0);
+  
+     // periodic updates
+     if (!callback) {
+        frameRate(60); //<>//
+        loop();
+     } else noLoop(); // or callback updates 
+     font = createFont("Arial", 18);
+}
 void showTuioObj(){
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
    for (int i=0;i<tuioObjectList.size();i++) {

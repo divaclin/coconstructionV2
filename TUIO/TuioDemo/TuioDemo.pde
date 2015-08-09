@@ -1,76 +1,61 @@
-import java.util.Map;
+import java.util.*;
 import TUIO.*;
-TuioProcessing tuioClient;
+import processing.opengl.*;
 
-final int INIT    = 1;
-final int PROCESS = 2;
-
-int stat;
-
-ArrayList<TuioObject> tuioObjectList;
-TuioInfo info = new TuioInfo(); 
-Clock test = new Clock(3000);
-int testI=0;
-
-// these are some helper variables which are used
-// to create scalable graphical feedback
-float cursor_size = 15;
-float object_size = 60;
-float table_size = 760;
-float scale_factor = 1;
-PFont font;
-
-boolean verbose = false; // print console debug messages
-boolean callback = true; // updates only after callbacks
-
-float obj_size = object_size*scale_factor; 
-float cur_size = cursor_size*scale_factor; 
-void setup()
-{
-  // GUI setup
-  noCursor();
+void setup(){
+  TuioPreSetup();
+  carSetup();
+  
   size(displayWidth,displayHeight);
-  noStroke();
-  fill(0);
-  
-  // periodic updates
-  if (!callback) {
-    frameRate(60); //<>//
-    loop();
-  } else noLoop(); // or callback updates 
-  
-  font = createFont("Arial", 18);
   scale_factor = height/table_size;
-
   tuioClient  = new TuioProcessing(this);
-  
+  tuioObjectList = tuioClient.getTuioObjectList();
+  img = loadImage("data/map.png");
   stat = INIT;
+  effect = new Effect();
+  timer = new Timer();
+  timer.schedule(new runTime()      ,0,unitTime);
+  timer.schedule(new init()         ,0,200);
+  timer.schedule(new idle()         ,(initTime+2)*1000,   updateTime);
+  timer.schedule(new like()         ,(initTime+2)*1000,   updateTime);
+  timer.schedule(new dislike()      ,(initTime+2)*1000,   updateTime);
+  timer.schedule(new comment()      ,(initTime+2)*1000,   updateTime);
+  timer.schedule(new thermodynamic(),(initTime+1)*1000, 4*updateTime);
+  
 }
 
 void draw(){
-  if(test.checkTimeout()){
-    saveStrings("test.txt",toStringArr(""+testI++));
-  }
-  background(0);
-  textFont(font,18*scale_factor);
   tuioObjectList = tuioClient.getTuioObjectList();
   switch(stat){
     case INIT:
-      stat=(info.init()==true?PROCESS:INIT);
+      if((initTime-EXECUTE_TIME/1000)==0){
+        printText("initialize completely");
+      }
+      else{
+        printText("initializing in "+(initTime-EXECUTE_TIME/1000)+"s");
+      }
       break;
     case PROCESS:
-      int selectedNum = info.findSelect();
-      TuioObject selected = null; 
-      for(TuioObject obj : tuioObjectList){
-         if(obj.getSymbolID()==selectedNum){
-            selected = obj;
-            break;
-         }  
+      drawBackground();
+      carRun();
+      current = getSelectObj();
+      if(current!=null){
+         loadStrings(url+"/select/"+current.getSymbolID());
+         effect.setStat(false);
       }
-      if(selected!=null){
-      
+      if(LIKE || DISLIKE){
+        stat = BIND;
       }
+
       break;
+    case BIND:
+      drawBackground();
+      if(IDLE || COMMENT){
+        stat = PROCESS;
+        effect.setStat(true);
+      }
+      
+      break;  
     default:
       break;
   }  
@@ -78,17 +63,39 @@ void draw(){
    //showTuioCursor();
    //showTuioBlob();
 }
-
+void keyPressed(){
+     switch(key){
+       case 's':
+       case 'S':
+          fix=!fix;
+          break;
+       default:
+          break;   
+     }
+}
 void printText(String str){
+     textFont(font,18*scale_factor);
      background(0);
      fill(255,255,255);
      textSize(50);
      text(str,(width-textWidth(str))/2,height/2);
 }
-String[] toStringArr(String str){
-         String[] tmp = new String[str.length()];
-         for(int i=0;i<str.length();i++){
-            tmp[i]=""+str.charAt(i);
-         }
-         return tmp;
+void drawBackground(){
+     background(0);
+     if(!fix){
+        stroke(255);
+        for(int i=0;i<gridWidth;i++){
+           line(i*float(displayWidth)/gridWidth,0,i*float(displayWidth)/gridWidth,displayHeight);
+        }
+        for(int i=0;i<gridHeight;i++){
+           line(0,i*float(displayHeight)/gridHeight,displayWidth,i*float(displayHeight)/gridHeight);
+        }
+        effect.show(current);
+        image(img,0,0,displayWidth,displayHeight);
+     }
+     else{
+       stroke(0,255,0);
+       line(width/2,0,width/2,height);
+       line(0,height/2,width,height/2);
+     }
 }
