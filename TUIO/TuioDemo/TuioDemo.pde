@@ -10,6 +10,7 @@ void setup(){
   scale_factor = height/table_size;
   tuioClient  = new TuioProcessing(this);
   tuioObjectList = tuioClient.getTuioObjectList();
+  
   img = loadImage("data/map.png");
   stat = INIT;
   effect = new Effect();
@@ -50,6 +51,7 @@ void draw(){
       break;
     case BIND:
       drawBackground();
+      carRun();
       if(IDLE || COMMENT){
         stat = PROCESS;
         effect.setStat(true);

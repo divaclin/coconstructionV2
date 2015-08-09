@@ -38,7 +38,8 @@ class Effect{
         }
       }
       void setStat(boolean stat){
-        this.thermodynamic = stat; 
+        this.thermodynamic = stat;
+        //check if thermodynamic effect or not 
       }
       int getX(float objWidth){
         return int(objWidth/this.effectWidth);

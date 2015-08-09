@@ -1,8 +1,8 @@
 TuioProcessing tuioClient;
 
 /* customized var*/
-final int initTime   =  1;
-final int maxID      = 80;
+final int initTime   =  1; //default 7
+final int maxID      = 77;
 final String url     = "http://coconstructionv2.parseapp.com";
 final int gridWidth  = 13;
 final int gridHeight =  9;
@@ -19,7 +19,7 @@ boolean IDLE         = false;
 boolean LIKE         = false;
 boolean DISLIKE      = false;
 boolean COMMENT      = false;
-int  EXECUTE_TIME    = 0;
+int  EXECUTE_TIME    = 0; //ms
 final int unitTime   = 100;
 final int updateTime = 1500;
 int updateCounter = 0;
