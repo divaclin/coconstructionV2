@@ -1,14 +1,3 @@
-TuioObject getSelectObj(){
-      int selectedNum = findSelect();
-      TuioObject selected = current; 
-      for(TuioObject obj : tuioObjectList){
-         if(obj.getSymbolID()==selectedNum){
-            selected = obj;
-            break;
-         }  
-      }
-      return selected;
-}
 int findSelect(){
     if(tuioObjectList.size()<TuioObjStatus.size()){
        ArrayList<Integer> List   = new ArrayList<Integer>();
@@ -21,10 +10,11 @@ int findSelect(){
            Status.add((Integer)me.getKey());
        }
        Status.removeAll(List);
-       clearSelect();
-       TuioObjStatus.put(Status.get(0),"SELECT");
-       println(TuioObjStatus);               
-       printText("obj ID:"+Status.get(0));
+       
+       loadStrings(url+"/select/"+Status.get(0));
+       effect.setStat(false);
+      // println(TuioObjStatus);               
+      // println("obj ID:"+Status.get(0));
        return Status.get(0);
     }
     else{

@@ -22,7 +22,7 @@ void setup(){
   timer.schedule(new dislike()      ,(initTime+2)*1000,   updateTime);
   timer.schedule(new comment()      ,(initTime+2)*1000,   updateTime);
   timer.schedule(new thermodynamic(),(initTime+1)*1000, 4*updateTime);
-  
+  frameRate(15);
 }
 
 void draw(){
@@ -39,11 +39,7 @@ void draw(){
     case PROCESS:
       drawBackground();
       carRun();
-      current = getSelectObj();
-      if(current!=null){
-         loadStrings(url+"/select/"+current.getSymbolID());
-         effect.setStat(false);
-      }
+      current=findSelect();
       if(LIKE || DISLIKE){
         stat = BIND;
       }

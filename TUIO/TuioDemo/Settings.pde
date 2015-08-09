@@ -1,7 +1,7 @@
 TuioProcessing tuioClient;
 
 /* customized var*/
-final int initTime   =  1; //default 7
+final int initTime   =  2; //default 7
 final int maxID      = 77;
 final String url     = "http://coconstructionv2.parseapp.com";
 final int gridWidth  = 13;
@@ -21,7 +21,7 @@ boolean DISLIKE      = false;
 boolean COMMENT      = false;
 int  EXECUTE_TIME    = 0; //ms
 final int unitTime   = 100;
-final int updateTime = 1500;
+final int updateTime = 1000;
 int updateCounter = 0;
  
 HashMap<Integer,String> TuioObjStatus = new HashMap<Integer,String>();
@@ -31,7 +31,7 @@ final int carNum = 3;
 Car vehicle[] = new Car[carNum];
 
 Effect effect;
-TuioObject current;
+int current;
 JSONArray heat;
 /*customized var end */
 

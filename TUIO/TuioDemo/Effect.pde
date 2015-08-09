@@ -10,7 +10,7 @@ class Effect{
         this.thermodynamic = true;
       }
       
-      void show(TuioObject obj){
+      void show(int objId){
         //println("thermodynamic:"+this.thermodynamic);
         if(thermodynamic && heat!=null){
             for(int i=0;i<heat.size();i++) {
@@ -30,11 +30,17 @@ class Effect{
                 }
             }    
         }
-        else if(obj != null){
-          if( LIKE && !DISLIKE ){fill(this.colorCode2RGB("#0071BC")[0],this.colorCode2RGB("#0071BC")[2],this.colorCode2RGB("#0071BC")[2]);}
-          if(!LIKE &&  DISLIKE ){fill(this.colorCode2RGB("#ED1C24")[0],this.colorCode2RGB("#ED1C24")[1],this.colorCode2RGB("#ED1C24")[2]);}
-          if(!LIKE && !DISLIKE ){fill(255);}
-          rect(this.getX(obj.getScreenX(width))*this.effectWidth,this.getY(obj.getScreenY(height))*this.effectHeight,this.effectWidth,this.effectHeight);
+        else if(objId!=-1){
+          for(TuioObject obj : tuioObjectList){
+             if(obj.getSymbolID() == objId){
+                if( LIKE && !DISLIKE ){fill(#0071bc);}
+                if(!LIKE &&  DISLIKE ){fill(#ed1c24);}
+                if(!LIKE && !DISLIKE ){fill(255);}
+                println(objId);
+                rect(this.getX(obj.getScreenX(width))*this.effectWidth,this.getY(obj.getScreenY(height))*this.effectHeight,this.effectWidth,this.effectHeight);                
+                break;
+             }
+          }
         }
       }
       void setStat(boolean stat){

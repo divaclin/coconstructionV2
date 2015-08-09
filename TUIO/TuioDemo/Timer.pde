@@ -1,3 +1,10 @@
+String strArr2str(String[] strArr){
+       String str = "";
+       for(int i=0;i<strArr.length;i++){
+         str += strArr[i];
+       }
+       return str;
+} 
 class init extends TimerTask{
       void run(){
          if(EXECUTE_TIME <= initTime*1000 && stat == INIT){
@@ -27,7 +34,10 @@ class idle extends TimerTask{
 class like extends TimerTask{
       void run(){
          if(stat != INIT){
-            LIKE=loadStrings(url+"/like")[0].contains("1");
+            LIKE = !(loadStrings(url+"/like")[0].charAt(0)=='0');
+            if(LIKE){
+               current = Integer.parseInt(loadStrings(url+"/like")[0]);
+            }
             println("like    = "+LIKE);
          }
       }
@@ -36,7 +46,10 @@ class like extends TimerTask{
 class dislike extends TimerTask{
       void run(){
         if(stat != INIT){
-           DISLIKE=loadStrings(url+"/dislike")[0].contains("1");
+           DISLIKE = !(loadStrings(url+"/dislike")[0].charAt(0)=='0');
+           if(DISLIKE){
+              current = Integer.parseInt(loadStrings(url+"/dislike")[0]);
+           }
            println("dislike = "+DISLIKE);
         }
       }
@@ -71,3 +84,4 @@ void stopLine(){
 void startLine(){
      println("----------------"+updateCounter+++" times----------------");
 }
+

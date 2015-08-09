@@ -35,7 +35,7 @@ app.get('/like',function(req,res){
 	query.equalTo('behavior','like');
 	query.find({
 		success:function(data){
-            res.send((data.length==0?'0':'1'));
+            res.send((data.length==0?'0': data[0].get('bid').toString()));
 		},
 		error:function(error,data){
 			res.send('like error');
@@ -49,7 +49,7 @@ app.get('/dislike',function(req,res){
 	query.equalTo('behavior','dislike');
 	query.find({
 		success:function(data){
-            res.send((data.length==0?'0':'1'));
+            res.send((data.length==0?'0': data[0].get('bid').toString()));
 		},
 		error:function(error,data){
 			res.send('dislike error');
@@ -159,48 +159,6 @@ app.get('/thermodynamic', function(req,res){
 		   }
 	   });
 });
-/*app.get('/update/like/:id',function(req,res){
-   var Building = Parse.Object.extend("Building");
-   var query = new Parse.Query(Building);
-   query.equalTo('bid',parseInt(req.params.id));
-   query.find({
-   	   success:function(data){
-   	   	   data[0].set('like',parseInt(data[0].get('like'))+1);
-		   data[0].save({
-		   	   success:function(data){
-		   	   	   res.send("update-like success");
-		   	   },
-			   error:function(error,data){
-			   	   res.send("update-like update error");
-			   }
-		   });
-   	   },
-	   error:function(error,data){
-	   	   res.send("update-like find error");
-	   }
-   })
-});
-app.get('/update/dislike/:id',function(req,res){
-    var Building = Parse.Object.extend("Building");
-    var query = new Parse.Query(Building);
-    query.equalTo('bid',parseInt(req.params.id));
-    query.find({
-    	   success:function(data){
-    	   	   data[0].set('dislike',parseInt(data[0].get('dislike'))+1);
- 		   data[0].save({
- 		   	   success:function(data){
- 		   	   	   res.send("update-dislike success");
- 		   	   },
- 			   error:function(error,data){
- 			   	   res.send("update-dislike update error");
- 			   }
- 		   });
-    	   },
- 	   error:function(error,data){
- 	   	   res.send("update-dislike find error");
- 	   }
-    })	
-});*/
 app.get('/initAll',function(req,res){
 	var Building = Parse.Object.extend("Building");
 	var query = new parse.Query(Building);
