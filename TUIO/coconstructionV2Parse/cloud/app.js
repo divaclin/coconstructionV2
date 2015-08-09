@@ -159,7 +159,7 @@ app.get('/thermodynamic', function(req,res){
 		   }
 	   });
 });
-app.get('/update/like/:id',function(req,res){
+/*app.get('/update/like/:id',function(req,res){
    var Building = Parse.Object.extend("Building");
    var query = new Parse.Query(Building);
    query.equalTo('bid',parseInt(req.params.id));
@@ -200,7 +200,7 @@ app.get('/update/dislike/:id',function(req,res){
  	   	   res.send("update-dislike find error");
  	   }
     })	
-});
+});*/
 app.get('/initAll',function(req,res){
 	var Building = Parse.Object.extend("Building");
 	var query = new parse.Query(Building);
