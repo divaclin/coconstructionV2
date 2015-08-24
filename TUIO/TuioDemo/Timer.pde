@@ -25,7 +25,15 @@ class idle extends TimerTask{
       void run(){
          if(stat != INIT){
            String status = "" ;
-           status =loadStrings(url+"/projectorStatus")[0].substring(0,1) ;
+           status =loadStrings(url+"/projectorStatus")[0] ;
+           
+           IDLE = false ; 
+           LIKE = false ;  
+           DISLIKE = false ; 
+           COMMENT = false ; 
+           
+           
+           startLine();
            switch (Integer.parseInt(status)){
               case 0 : IDLE = true ; break ;
               case 1 : LIKE = true ; break ;
@@ -34,12 +42,23 @@ class idle extends TimerTask{
               default : break ;
             }
             
-            startLine();
-            println("idle    = "+IDLE);
-            println("like    = "+LIKE);
-            println("dislike = "+DISLIKE);
-            println("comment = "+COMMENT);
-            stopLine();
+            if (IDLE){
+              print("IDLE ");
+            }else if (LIKE){
+              print("LIKE ");
+            }else if (DISLIKE){
+              print("DISLIKE ");
+            } else if (COMMENT){
+              print("COMMENT ");
+            }else {
+              print("unknown ") ; 
+            }
+            
+//            println("idle    = "+IDLE);
+//            println("like    = "+LIKE);
+//            println("dislike = "+DISLIKE);
+//            println("comment = "+COMMENT);
+           
             
          }
       }
@@ -95,6 +114,7 @@ void stopLine(){
      println("--------------------------------------"+tmp);
 }
 void startLine(){ // 用來畫 console 的線
-     println("----------------"+updateCounter+++" times----------------");
+     println("");
+     print("-"+updateCounter++ +"- ");
 }
 

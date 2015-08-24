@@ -28,12 +28,12 @@ int updateCounter = 0;
  
 HashMap<Integer,String> TuioObjStatus = new HashMap<Integer,String>(); // objectID , object Status 
 
-ArrayList<TuioObject> tuioObjectList;
+ArrayList<TuioObject> tuioObjectList; // 
 final int carNum = 3; 
 Car vehicle[] = new Car[carNum];
 
 Effect effect;
-int current;
+
 JSONArray heat;
 /*customized var end */
 

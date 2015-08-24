@@ -13,8 +13,8 @@ int findSelect(){
        
        loadStrings(url+"/select/"+Status.get(0));
        effect.setStat(false);
-      // println(TuioObjStatus);               
-      // println("obj ID:"+Status.get(0));
+       // println(TuioObjStatus);               
+       print(" -S"+Status.get(0) + "- " );
        return Status.get(0);
     }
     else{

@@ -2,6 +2,10 @@ import java.util.*;
 import TUIO.*;
 import processing.opengl.*;
 
+
+int current = -1 ;
+Main M = new Main () ; 
+
 void setup(){
   TuioPreSetup();
   carSetup();
@@ -31,6 +35,10 @@ void setup(){
 
 void draw(){
   tuioObjectList = tuioClient.getTuioObjectList();
+  
+  int detect ;
+  detect=findSelect(); // 偵測桌上的變化，並同步到雲端
+  
   switch(stat){
     case INIT:   // 前面會抓取一開始桌面上有的建築
       if((initTime-EXECUTE_TIME/1000)==0){
@@ -44,10 +52,22 @@ void draw(){
     case PROCESS: //  一直進行的模式
       drawBackground();
       carRun();
-      current=findSelect(); // 偵測桌上的變化，並同步到雲端
+//      println("!!!freq") ;
       
+      
+      if (detect != -1){
+        if (detect == 3){
+          current = -1 ;
+          loadStrings(url+"/idle");    
+        }else{
+          current = detect;
+        }
+      }
+       effect.show(current);
+      
+      print("P") ; 
       if(LIKE || DISLIKE){
-        
+        effect.setStat(false);
         stat = BIND;
       }
 
@@ -55,6 +75,13 @@ void draw(){
     case BIND: // 
       drawBackground();
       carRun();
+      
+      current = M.cloudBuilding()  ; // 等待實作，做一次就好
+      effect.show(current);effect.show(current); 
+      
+      detect=findSelect(); // 偵測桌上的變化，並同步到雲端
+
+      effect.show(current);
       
       
       if(IDLE || COMMENT){  
@@ -66,9 +93,9 @@ void draw(){
     default:
       break;
   }  
-   //showTuioObj();
-   //showTuioCursor();
-   //showTuioBlob();
+//   showTuioObj();
+//   showTuioCursor();
+//   showTuioBlob();
 }
 void keyPressed(){
      switch(key){
@@ -100,7 +127,7 @@ void drawBackground(){
            line(0,i*float(displayHeight)/gridHeight,displayWidth,i*float(displayHeight)/gridHeight);
         }
         // 畫熱力圖
-        effect.show(current);
+        
         
         // 畫地圖
         image(img,0,0,displayWidth,displayHeight);

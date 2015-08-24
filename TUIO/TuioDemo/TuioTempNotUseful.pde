@@ -53,7 +53,7 @@ void showTuioCursor(){
 void showTuioBlob(){
   ArrayList<TuioBlob> tuioBlobList = tuioClient.getTuioBlobList();
   for (int i=0;i<tuioBlobList.size();i++) {
-     TuioBlob tblb = tuioBlobList.get(i);
+     TuioBlob tblb = tuioBlobList.get(i); // 什麼是 blob
      stroke(0);
      fill(0);
      pushMatrix();
