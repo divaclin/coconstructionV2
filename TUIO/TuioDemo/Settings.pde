@@ -1,11 +1,13 @@
 TuioProcessing tuioClient;
 
 /* customized var*/
-final int initTime   =  2; //default 7
+final int initTime   =  2;  //  抓子一開始抓桌面的時間 default 7
 final int maxID      = 77;
+
 final String url     = "http://coconstructionv2.parseapp.com";
-final int gridWidth  = 13;
-final int gridHeight =  9;
+
+final int gridWidth  = 13;  //  長邊有幾格
+final int gridHeight =  9;  //  寬邊有幾格
 
 final int INIT    = 1;
 final int PROCESS = 2;
@@ -24,7 +26,7 @@ final int unitTime   = 100;
 final int updateTime = 1000;
 int updateCounter = 0;
  
-HashMap<Integer,String> TuioObjStatus = new HashMap<Integer,String>();
+HashMap<Integer,String> TuioObjStatus = new HashMap<Integer,String>(); // objectID , object Status 
 
 ArrayList<TuioObject> tuioObjectList;
 final int carNum = 3; 

@@ -10,11 +10,11 @@ class Effect{
         this.thermodynamic = true;
       }
       
-      void show(int objId){
+      void show(int objId){       // 畫熱力圖                           
         //println("thermodynamic:"+this.thermodynamic);
         if(thermodynamic && heat!=null){
             for(int i=0;i<heat.size();i++) {
-                JSONObject heatObj = heat.getJSONObject(i);
+                JSONObject heatObj = heat.getJSONObject(i); // current drawing building
                 TuioObject tmp = null; 
                   for(TuioObject tobj : tuioObjectList){
                      if(tobj.getSymbolID()==heatObj.getInt("bid")){
@@ -33,9 +33,9 @@ class Effect{
         else if(objId!=-1){
           for(TuioObject obj : tuioObjectList){
              if(obj.getSymbolID() == objId){
-                if( LIKE && !DISLIKE ){fill(#0071bc);}
-                if(!LIKE &&  DISLIKE ){fill(#ed1c24);}
-                if(!LIKE && !DISLIKE ){fill(255);}
+                if( LIKE && !DISLIKE ){fill(#0071bc);}  // 喜歡
+                if(!LIKE &&  DISLIKE ){fill(#ed1c24);}  // 不喜歡
+                if(!LIKE && !DISLIKE ){fill(255);}      // 持平
                 println(objId);
                 rect(this.getX(obj.getScreenX(width))*this.effectWidth,this.getY(obj.getScreenY(height))*this.effectHeight,this.effectWidth,this.effectHeight);                
                 break;
@@ -43,11 +43,12 @@ class Effect{
           }
         }
       }
+      
       void setStat(boolean stat){
         this.thermodynamic = stat;
         //check if thermodynamic effect or not 
       }
-      int getX(float objWidth){
+      int getX(float objWidth){ 
         return int(objWidth/this.effectWidth);
       }
       int getY(float objHeight){
