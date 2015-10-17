@@ -26,6 +26,8 @@ class idle extends TimerTask{
          if(stat != INIT){
            String status = "" ;
            status =loadStrings(url+"/projectorStatus")[0] ;
+           String[] statusArr = split(status,",") ; 
+           
            
            IDLE = false ; 
            LIKE = false ;  
@@ -34,7 +36,7 @@ class idle extends TimerTask{
            
            
            startLine();
-           switch (Integer.parseInt(status)){
+           switch (Integer.parseInt(statusArr[0])){  //  would happen  request timed out 
               case 0 : IDLE = true ; break ;
               case 1 : LIKE = true ; break ;
               case 2 : DISLIKE = true ; break ;
@@ -45,8 +47,10 @@ class idle extends TimerTask{
             if (IDLE){
               print("IDLE ");
             }else if (LIKE){
+              commentingBuilding = Integer.parseInt(statusArr[1]) ;
               print("LIKE ");
             }else if (DISLIKE){
+              commentingBuilding = Integer.parseInt(statusArr[1]) ;
               print("DISLIKE ");
             } else if (COMMENT){
               print("COMMENT ");
@@ -95,6 +99,24 @@ class idle extends TimerTask{
 //         }
 //      }
 //}
+
+/* Radian add for accelerate speed */
+
+
+class sendStatus extends TimerTask {
+  void run (){
+    if (isSendingSelect){  
+      loadStrings(url+"/select/"+ selectingBid); ;
+      isSendingSelect = false ;
+    } 
+    if (isSendingIdle)  loadStrings(url+"/idle");
+    println ("sending") ;
+  }
+} 
+
+
+//
+
 class runTime extends TimerTask{
       void run(){
          EXECUTE_TIME +=unitTime;

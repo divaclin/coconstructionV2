@@ -50,4 +50,6 @@ boolean callback = false; // updates only after callbacks
 
 float obj_size = object_size*scale_factor; 
 float cur_size = cursor_size*scale_factor;
+
+int commentingBuilding ; 
 /*TUIO var end*/

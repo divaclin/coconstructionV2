@@ -10,14 +10,17 @@ int findSelect(){
            Status.add((Integer)me.getKey());
        }
        Status.removeAll(List);
+       selectingBid = Status.get(0) ; 
+
+       isSendingSelect = true ; // loadStrings(url+"/select/"+ selectingBid);
        
-       loadStrings(url+"/select/"+Status.get(0));
        effect.setStat(false);
        // println(TuioObjStatus);               
        print(" -S"+Status.get(0) + "- " );
        return Status.get(0);
     }
     else{
+//      isSendingSelect = false ;
          return -1;
     }
 }

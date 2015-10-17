@@ -35,10 +35,12 @@ class Effect{
                 }
                 if(heatObj.getString("type").equals("draw")   ){fill(255);}
                 if(tmp!=null){
-                  rect(this.getX(tmp.getScreenX(width))*this.effectWidth,this.getY(tmp.getScreenY(height))*this.effectHeight,this.effectWidth,this.effectHeight);
+//                  rect(this.getX(tmp.getScreenX(width))*this.effectWidth,this.getY(tmp.getScreenY(height))*this.effectHeight,this.effectWidth,this.effectHeight);
+                  rect(mapXY.getX(tmp.getSymbolID())*this.effectWidth,mapXY.getY(tmp.getSymbolID())*this.effectHeight,this.effectWidth,this.effectHeight);
+
                 }
             }
-        }else{ // Radian add : 這個狀況是要 for 當使用者選取唯一建築的時候
+        }else{ // Radian add : 這個狀況是 for 當使用者選取唯一建築的時候
             print("o");
             for(int i=0;i<heat.size();i++) {
                 JSONObject heatObj = heat.getJSONObject(i); // current drawing building
@@ -62,7 +64,9 @@ class Effect{
                 }
                 if(heatObj.getString("type").equals("draw")   ){fill(255);}
                 if(tmp!=null){
-                  rect(this.getX(tmp.getScreenX(width))*this.effectWidth,this.getY(tmp.getScreenY(height))*this.effectHeight,this.effectWidth,this.effectHeight);
+//                  rect(this.getX(tmp.getScreenX(width))*this.effectWidth,this.getY(tmp.getScreenY(height))*this.effectHeight,this.effectWidth,this.effectHeight);
+                    rect(mapXY.getX(tmp.getSymbolID())*this.effectWidth,mapXY.getY(tmp.getSymbolID())*this.effectHeight,this.effectWidth,this.effectHeight);
+
                 }
             }            
         }

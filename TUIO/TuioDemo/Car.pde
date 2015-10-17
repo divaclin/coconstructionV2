@@ -1,4 +1,5 @@
 class Car{
+      float _gridWidth ; 
       float x;
       float y;
       int dir;
@@ -7,7 +8,8 @@ class Car{
       float r;
       float speed;
       Car(float x,float y,int dir,float speed){
-         this.x = x;
+         _gridWidth = float(displayWidth)/gridWidth ;
+         this.x = (x+.2) * _gridWidth;
          this.y = y;
          this.dir = dir;
          this.img = loadImage("car"+int(random(1,4))+".png");  
@@ -15,12 +17,13 @@ class Car{
          this.speed = speed;
       }
       Car(int dir,float r){
-         this.x = 615;
-         this.y = 450;
-         this.r = r;
-         this.dir = dir;
-         this.img = loadImage("car"+int(random(1,4))+".png");  
-         this.speed = 0;
+//         _gridWidth = float(displayWidth)/gridWidth ;
+//         this.x = 8 *_gridWidth;
+//         this.y =  float(displayHeight) / gridWidth ;
+//         this.r = r;
+//         this.dir = dir;
+//         this.img = loadImage("car"+int(random(1,4))+".png");  
+//         this.speed = 0;
       }
       void show(){
         switch(dir){
@@ -78,7 +81,8 @@ class Car{
 
 void carSetup(){
      for(int i=0;i<carNum;i++){
-       vehicle[i] = (i%3==0 ?new Car(1,105+25*(i/3+1)):new Car(displayWidth*0.78472,displayHeight,i%3+1,i%3+1));
+//       vehicle[i] = (i%3==0 ?new Car(1,105+25*(i/3+1)):new Car(displayWidth*0.78472,displayHeight,i%3+1,i%3+1));
+       vehicle[i] = (i%3==0 ?new Car(1,105+25*(i/3+1)):new Car(4.15,displayHeight,i%3+1,i%3+1));
      }
 }
 void carRun(){

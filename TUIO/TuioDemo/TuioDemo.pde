@@ -4,7 +4,13 @@ import processing.opengl.*;
 
 
 int current = -1 ;
-Main M = new Main () ; 
+
+MapXY mapXY = new MapXY() ; 
+
+boolean isSendingSelect = false ;  
+Integer selectingBid = 0 ;   
+boolean isSendingIdle = false ;
+
 
 void setup(){
   TuioPreSetup();
@@ -24,6 +30,7 @@ void setup(){
   // 這邊會去偵測 device P 現在在做什麼
   timer.schedule(new init()         ,0,200);
   timer.schedule(new idle()         ,(initTime+2)*1000,   updateTime);
+  timer.schedule(new sendStatus()         ,(initTime+2)*1000,   updateTime);
 //  timer.schedule(new like()         ,(initTime+2)*1000,   updateTime);
 //  timer.schedule(new dislike()      ,(initTime+2)*1000,   updateTime);
 //  timer.schedule(new comment()      ,(initTime+2)*1000,   updateTime);
@@ -58,8 +65,9 @@ void draw(){
       if (detect != -1){
         if (detect == 3){
           current = -1 ;
-          loadStrings(url+"/idle");    
+          isSendingIdle = true ; // would call in sendStatus timerTask : loadStrings(url+"/idle");    
         }else{
+          isSendingIdle = false ; 
           current = detect;
         }
       }
@@ -76,7 +84,7 @@ void draw(){
       drawBackground();
       carRun();
       
-      current = M.cloudBuilding()  ; // 等待實作，做一次就好
+      current = commentingBuilding ; // 等待實作，做一次就好
       effect.show(current);effect.show(current); 
       
       detect=findSelect(); // 偵測桌上的變化，並同步到雲端
@@ -117,7 +125,7 @@ void printText(String str){
 void drawBackground(){
      background(0);
      if(!fix){
-        stroke(255); // 格線顏色
+        stroke(30); // 格線顏色
         
         // 畫左右隔線
         for(int i=0;i<gridWidth;i++){
